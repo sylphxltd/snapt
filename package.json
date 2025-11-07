@@ -11,6 +11,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@iconify/react": "^6.0.2",
+    "@radix-ui/themes": "^3.2.1",
+    "@sylphx/silk": "^1.1.0",
     "@tailwindcss/postcss": "^4.1.17",
     "@vercel/og": "^0.8.5",
     "autoprefixer": "^10.4.21",
