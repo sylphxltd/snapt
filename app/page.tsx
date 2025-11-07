@@ -1,10 +1,10 @@
 'use client';
 
 import { css } from '@sylphx/silk';
-import { Button, Container, Flex, Heading, Text, Badge, Card, Box, Section } from '@radix-ui/themes';
+import { Container } from '@radix-ui/themes';
 import { Icon } from '@iconify/react';
 
-// ===== Silk Styles =====
+// ===== Silk Styles (no nested objects) =====
 
 const page = css({
   position: 'relative',
@@ -31,10 +31,7 @@ const hero = css({
   position: 'relative',
   paddingTop: '120px',
   paddingBottom: '160px',
-  '@media (max-width: 768px)': {
-    paddingTop: '80px',
-    paddingBottom: '100px',
-  },
+  textAlign: 'center',
 });
 
 const badge = css({
@@ -60,9 +57,6 @@ const titleGradient = css({
   fontWeight: 900,
   lineHeight: 1.1,
   marginBottom: '24px',
-  '@media (max-width: 768px)': {
-    fontSize: '48px',
-  },
 });
 
 const subtitle = css({
@@ -70,10 +64,9 @@ const subtitle = css({
   lineHeight: 1.6,
   color: 'rgba(255, 255, 255, 0.7)',
   maxWidth: '600px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
   marginBottom: '40px',
-  '@media (max-width: 768px)': {
-    fontSize: '18px',
-  },
 });
 
 const ctaGroup = css({
@@ -98,10 +91,6 @@ const primaryButton = css({
   cursor: 'pointer',
   transition: 'all 0.3s ease',
   boxShadow: '0 8px 32px rgba(139, 92, 246, 0.3)',
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 12px 48px rgba(139, 92, 246, 0.4)',
-  },
 });
 
 const secondaryButton = css({
@@ -118,10 +107,6 @@ const secondaryButton = css({
   color: '#ffffff',
   cursor: 'pointer',
   transition: 'all 0.3s ease',
-  '&:hover': {
-    background: 'rgba(255, 255, 255, 0.1)',
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-  },
 });
 
 const statsGrid = css({
@@ -130,9 +115,6 @@ const statsGrid = css({
   gap: '48px',
   maxWidth: '800px',
   margin: '0 auto',
-  '@media (max-width: 768px)': {
-    gap: '32px',
-  },
 });
 
 const statItem = css({
@@ -146,9 +128,6 @@ const statValue = css({
   fontSize: '48px',
   fontWeight: 900,
   marginBottom: '8px',
-  '@media (max-width: 768px)': {
-    fontSize: '36px',
-  },
 });
 
 const statLabel = css({
@@ -160,9 +139,6 @@ const statLabel = css({
 
 const section = css({
   padding: '120px 0',
-  '@media (max-width: 768px)': {
-    padding: '80px 0',
-  },
 });
 
 const sectionTitle = css({
@@ -173,9 +149,6 @@ const sectionTitle = css({
   background: 'linear-gradient(to right, #ffffff, #e9d5ff)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  '@media (max-width: 768px)': {
-    fontSize: '36px',
-  },
 });
 
 const sectionSubtitle = css({
@@ -189,12 +162,6 @@ const featureGrid = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
   gap: '32px',
-  '@media (max-width: 1024px)': {
-    gridTemplateColumns: 'repeat(2, 1fr)',
-  },
-  '@media (max-width: 768px)': {
-    gridTemplateColumns: '1fr',
-  },
 });
 
 const featureCard = css({
@@ -206,25 +173,6 @@ const featureCard = css({
   borderRadius: '24px',
   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   overflow: 'hidden',
-  '&:hover': {
-    transform: 'translateY(-8px)',
-    borderColor: 'rgba(139, 92, 246, 0.3)',
-    boxShadow: '0 24px 64px rgba(139, 92, 246, 0.2)',
-  },
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '1px',
-    background: 'linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent)',
-    opacity: 0,
-    transition: 'opacity 0.4s ease',
-  },
-  '&:hover::before': {
-    opacity: 1,
-  },
 });
 
 const featureIcon = css({
@@ -238,9 +186,6 @@ const featureIcon = css({
   marginBottom: '24px',
   fontSize: '28px',
   transition: 'transform 0.4s ease',
-  '.group:hover &': {
-    transform: 'scale(1.1) rotate(5deg)',
-  },
 });
 
 const featureTitle = css({
@@ -318,9 +263,6 @@ const codeBlock = css({
 
 const ctaSection = css({
   padding: '80px 0',
-  '@media (max-width: 768px)': {
-    padding: '60px 0',
-  },
 });
 
 const ctaCard = css({
@@ -332,19 +274,6 @@ const ctaCard = css({
   borderRadius: '24px',
   textAlign: 'center',
   overflow: 'hidden',
-  '@media (max-width: 768px)': {
-    padding: '48px 32px',
-  },
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: '-50%',
-    left: '-50%',
-    width: '200%',
-    height: '200%',
-    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1), transparent 70%)',
-    animation: 'rotate 20s linear infinite',
-  },
 });
 
 const ctaIcon = css({
@@ -357,9 +286,6 @@ const ctaTitle = css({
   fontWeight: 800,
   marginBottom: '16px',
   color: '#ffffff',
-  '@media (max-width: 768px)': {
-    fontSize: '28px',
-  },
 });
 
 const ctaText = css({
@@ -389,9 +315,6 @@ const footerLink = css({
   textDecoration: 'none',
   fontWeight: 600,
   transition: 'color 0.3s ease',
-  '&:hover': {
-    color: '#c4b5fd',
-  },
 });
 
 const footerMeta = css({
@@ -474,46 +397,44 @@ export default function Home() {
       {/* Hero */}
       <section className={hero}>
         <Container size="4">
-          <div style={{ textAlign: 'center' }}>
-            <div className={badge}>
-              <Icon icon="ph:lightning-fill" style={{ color: '#fbbf24' }} />
-              <span>Powered by Next.js 16 + Bun + Silk</span>
+          <div className={badge}>
+            <Icon icon="ph:lightning-fill" style={{ color: '#fbbf24' }} />
+            <span>Powered by Next.js 16 + Bun + Silk</span>
+          </div>
+
+          <h1 className={titleGradient}>Snapt</h1>
+
+          <p className={subtitle}>
+            Transform your GitHub repositories into <strong style={{ color: '#c4b5fd' }}>stunning visual assets</strong> with
+            dynamic image generation
+          </p>
+
+          <div className={ctaGroup}>
+            <a href="#examples" className={`${primaryButton} primary-btn`}>
+              <Icon icon="ph:sparkle-fill" />
+              See Examples
+              <Icon icon="ph:arrow-right-bold" />
+            </a>
+            <a href="https://github.com/sylphxltd/snapt" target="_blank" className={`${secondaryButton} secondary-btn`}>
+              <Icon icon="ph:github-logo-fill" />
+              View on GitHub
+            </a>
+          </div>
+
+          <div className={statsGrid}>
+            <div className={statItem}>
+              <div className={statValue}>500B</div>
+              <div className={statLabel}>Ultra-light</div>
             </div>
-
-            <h1 className={titleGradient}>Snapt</h1>
-
-            <p className={subtitle}>
-              Transform your GitHub repositories into <strong style={{ color: '#c4b5fd' }}>stunning visual assets</strong> with
-              dynamic image generation
-            </p>
-
-            <div className={ctaGroup}>
-              <a href="#examples" className={primaryButton}>
-                <Icon icon="ph:sparkle-fill" />
-                See Examples
-                <Icon icon="ph:arrow-right-bold" />
-              </a>
-              <a href="https://github.com/sylphxltd/snapt" target="_blank" className={secondaryButton}>
-                <Icon icon="ph:github-logo-fill" />
-                View on GitHub
-              </a>
+            <div className={statItem}>
+              <div className={statValue}>1280×640</div>
+              <div className={statLabel}>Perfect size</div>
             </div>
-
-            <div className={statsGrid}>
-              <div className={statItem}>
-                <div className={statValue}>500B</div>
-                <div className={statLabel}>Ultra-light</div>
+            <div className={statItem}>
+              <div className={statValue}>
+                <Icon icon="ph:infinity-bold" />
               </div>
-              <div className={statItem}>
-                <div className={statValue}>1280×640</div>
-                <div className={statLabel}>Perfect size</div>
-              </div>
-              <div className={statItem}>
-                <div className={statValue}>
-                  <Icon icon="ph:infinity-bold" />
-                </div>
-                <div className={statLabel}>Free forever</div>
-              </div>
+              <div className={statLabel}>Free forever</div>
             </div>
           </div>
         </Container>
@@ -530,7 +451,7 @@ export default function Home() {
 
           <div className={featureGrid}>
             {features.map((feature, i) => (
-              <div key={i} className={`${featureCard} group`}>
+              <div key={i} className={`${featureCard} feature-card`}>
                 <div className={featureIcon} style={{ color: feature.color }}>
                   <Icon icon={feature.icon} />
                 </div>
@@ -622,7 +543,7 @@ export default function Home() {
             </div>
             <h2 className={ctaTitle}>Ready to elevate your repositories?</h2>
             <p className={ctaText}>Start generating beautiful images in seconds</p>
-            <a href="https://github.com/sylphxltd/snapt" target="_blank" className={primaryButton} style={{ position: 'relative', zIndex: 1 }}>
+            <a href="https://github.com/sylphxltd/snapt" target="_blank" className={`${primaryButton} primary-btn`} style={{ position: 'relative', zIndex: 1 }}>
               <Icon icon="ph:github-logo-fill" />
               View Documentation
             </a>
@@ -637,7 +558,7 @@ export default function Home() {
             <span>Made with</span>
             <Icon icon="ph:heart-fill" style={{ color: '#ec4899' }} />
             <span>by</span>
-            <a href="https://github.com/sylphxltd" className={footerLink}>
+            <a href="https://github.com/sylphxltd" className={`${footerLink} footer-link`}>
               SylphX
             </a>
           </div>
@@ -650,11 +571,6 @@ export default function Home() {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(30px, -30px) scale(1.05); }
           66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-
-        @keyframes rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
         }
 
         * {
@@ -677,6 +593,83 @@ export default function Home() {
 
         strong {
           font-weight: 700;
+        }
+
+        /* Button hover effects */
+        .primary-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 48px rgba(139, 92, 246, 0.4);
+        }
+
+        .secondary-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Feature card hover effects */
+        .feature-card:hover {
+          transform: translateY(-8px);
+          border-color: rgba(139, 92, 246, 0.3);
+          box-shadow: 0 24px 64px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Footer link hover */
+        .footer-link:hover {
+          color: #c4b5fd;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+          .${featureGrid} {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .${hero} {
+            padding-top: 80px;
+            padding-bottom: 100px;
+          }
+
+          .${titleGradient} {
+            font-size: 48px;
+          }
+
+          .${subtitle} {
+            font-size: 18px;
+          }
+
+          .${statsGrid} {
+            gap: 32px;
+          }
+
+          .${statValue} {
+            font-size: 36px;
+          }
+
+          .${section} {
+            padding: 80px 0;
+          }
+
+          .${sectionTitle} {
+            font-size: 36px;
+          }
+
+          .${featureGrid} {
+            grid-template-columns: 1fr;
+          }
+
+          .${ctaSection} {
+            padding: 60px 0;
+          }
+
+          .${ctaCard} {
+            padding: 48px 32px;
+          }
+
+          .${ctaTitle} {
+            font-size: 28px;
+          }
         }
       `}</style>
     </main>
