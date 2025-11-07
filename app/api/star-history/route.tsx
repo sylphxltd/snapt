@@ -212,6 +212,7 @@ export async function GET(request: NextRequest) {
     );
   } catch (error) {
     console.error('Star history error:', error);
-    return new Response(`Error: ${error.message}`, { status: 500 });
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return new Response(`Error: ${message}`, { status: 500 });
   }
 }
