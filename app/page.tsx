@@ -1,7 +1,103 @@
 'use client';
 
+import { css } from '@sylphx/silk';
 import { Button, Container, Flex, Heading, Text, Badge, Card, Box, Section } from '@radix-ui/themes';
 import { Icon } from '@iconify/react';
+
+const floatingOrb = css({
+  position: 'absolute',
+  borderRadius: '50%',
+  opacity: 0.6,
+  filter: 'blur(80px)',
+  pointerEvents: 'none',
+  animation: 'float 15s ease-in-out infinite',
+});
+
+const floatingOrbDelayed = css({
+  position: 'absolute',
+  borderRadius: '50%',
+  opacity: 0.6,
+  filter: 'blur(80px)',
+  pointerEvents: 'none',
+  animation: 'float-delayed 15s ease-in-out infinite',
+});
+
+const heroSection = css({
+  position: 'relative',
+  minHeight: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  overflow: 'hidden',
+});
+
+const heroPulse = css({
+  position: 'absolute',
+  inset: 0,
+  animation: 'pulse-slow 8s ease-in-out infinite',
+  background: 'radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.3), transparent 50%)',
+});
+
+const gradientText = css({
+  background: 'linear-gradient(135deg, #fff 0%, #a78bfa 50%, #ec4899 100%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  fontWeight: 900,
+});
+
+const glassCard = css({
+  background: 'rgba(255, 255, 255, 0.03)',
+  backdropFilter: 'blur(20px)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: '24px',
+  padding: '32px',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  '&:hover': {
+    transform: 'translateY(-4px)',
+    boxShadow: '0 20px 60px rgba(139, 92, 246, 0.3)',
+    borderColor: 'rgba(139, 92, 246, 0.3)',
+  },
+});
+
+const featureIcon = css({
+  fontSize: '64px',
+  marginBottom: '16px',
+  transition: 'transform 0.3s ease',
+  '.group:hover &': {
+    transform: 'scale(1.1)',
+  },
+});
+
+const featureGrid = css({
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: '24px',
+  '@media (min-width: 768px)': {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
+  '@media (min-width: 1024px)': {
+    gridTemplateColumns: 'repeat(3, 1fr)',
+  },
+});
+
+const codeBlock = css({
+  padding: '16px',
+  background: 'rgba(0, 0, 0, 0.4)',
+  borderRadius: '12px',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  overflowX: 'auto',
+});
+
+const glassCardSubtle = css({
+  background: 'rgba(255, 255, 255, 0.02)',
+  backdropFilter: 'blur(20px)',
+});
+
+const ctaCard = css({
+  background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2))',
+  backdropFilter: 'blur(20px)',
+  borderColor: 'rgba(139, 92, 246, 0.3)',
+});
 
 export default function Home() {
   return (
@@ -9,30 +105,30 @@ export default function Home() {
       {/* Animated Background Orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
         <div
-          className="absolute top-[10%] left-[10%] w-[400px] h-[400px] rounded-full opacity-60 animate-float"
+          className={floatingOrb}
           style={{
+            top: '10%',
+            left: '10%',
+            width: '400px',
+            height: '400px',
             background: 'radial-gradient(circle, rgba(139, 92, 246, 0.8), transparent)',
-            filter: 'blur(80px)',
           }}
         />
         <div
-          className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full opacity-60 animate-float-delayed"
+          className={floatingOrbDelayed}
           style={{
+            bottom: '10%',
+            right: '10%',
+            width: '500px',
+            height: '500px',
             background: 'radial-gradient(circle, rgba(236, 72, 153, 0.6), transparent)',
-            filter: 'blur(80px)',
           }}
         />
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 animate-pulse-slow"
-          style={{
-            background:
-              'radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.3), transparent 50%)',
-          }}
-        />
+      <section className={heroSection}>
+        <div className={heroPulse} />
 
         <Container size="4" className="relative z-10">
           <Flex direction="column" align="center" gap="6">
@@ -40,16 +136,12 @@ export default function Home() {
             <Badge size="3" radius="full" variant="surface" className="shadow-lg shadow-purple-500/20">
               <Flex align="center" gap="2">
                 <Icon icon="ph:lightning-fill" className="text-amber-400" />
-                <Text>Powered by Next.js 16 + Bun + Radix UI</Text>
+                <Text>Powered by Next.js 16 + Bun + Silk</Text>
               </Flex>
             </Badge>
 
             {/* Title */}
-            <Heading
-              size="9"
-              align="center"
-              className="bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent font-black"
-            >
+            <Heading size="9" align="center" className={gradientText}>
               Snapt
             </Heading>
 
@@ -82,7 +174,7 @@ export default function Home() {
             {/* Quick Stats */}
             <Flex gap="6" mt="6" wrap="wrap" justify="center">
               <Flex direction="column" align="center" gap="1">
-                <Text size="7" weight="bold" className="bg-gradient-to-r from-white via-purple-300 to-pink-300 bg-clip-text text-transparent">
+                <Text size="7" weight="bold" className={gradientText}>
                   500B
                 </Text>
                 <Text size="2" color="gray">
@@ -90,7 +182,7 @@ export default function Home() {
                 </Text>
               </Flex>
               <Flex direction="column" align="center" gap="1">
-                <Text size="7" weight="bold" className="bg-gradient-to-r from-white via-purple-300 to-pink-300 bg-clip-text text-transparent">
+                <Text size="7" weight="bold" className={gradientText}>
                   1280×640
                 </Text>
                 <Text size="2" color="gray">
@@ -98,7 +190,7 @@ export default function Home() {
                 </Text>
               </Flex>
               <Flex direction="column" align="center" gap="1">
-                <Icon icon="ph:infinity-bold" className="text-5xl bg-gradient-to-r from-white via-purple-300 to-pink-300 bg-clip-text text-transparent" />
+                <Icon icon="ph:infinity-bold" className={`text-5xl ${gradientText}`} />
                 <Text size="2" color="gray">
                   Free forever
                 </Text>
@@ -121,7 +213,7 @@ export default function Home() {
             </Text>
           </Flex>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className={featureGrid}>
             {[
               {
                 icon: 'ph:image-fill',
@@ -150,7 +242,7 @@ export default function Home() {
               {
                 icon: 'ph:lock-key-fill',
                 title: 'Type Safe',
-                desc: 'Built with TypeScript for complete type safety and developer experience',
+                desc: 'Built with TypeScript and Silk for complete type safety and performance',
                 color: 'text-emerald-400',
               },
               {
@@ -160,11 +252,8 @@ export default function Home() {
                 color: 'text-cyan-400',
               },
             ].map((feature, i) => (
-              <div
-                key={i}
-                className="group p-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl transition-all duration-300 hover:translate-y-[-4px] hover:shadow-2xl hover:shadow-purple-500/30 hover:border-purple-500/30"
-              >
-                <Icon icon={feature.icon} className={`text-6xl mb-4 transition-transform group-hover:scale-110 ${feature.color}`} />
+              <div key={i} className={`group ${glassCard}`}>
+                <Icon icon={feature.icon} className={`${featureIcon} ${feature.color}`} />
                 <Heading size="5" mb="2">
                   {feature.title}
                 </Heading>
@@ -190,7 +279,7 @@ export default function Home() {
 
           <Flex direction="column" gap="8">
             {/* Banner Example */}
-            <Card size="4" className="bg-white/[0.02] backdrop-blur-xl">
+            <Card size="4" className={glassCardSubtle}>
               <Flex direction="column" gap="4">
                 <Flex justify="between" align="center" wrap="wrap" gap="2">
                   <Heading size="5" className="flex items-center gap-2">
@@ -211,7 +300,7 @@ export default function Home() {
                   />
                 </Box>
 
-                <div className="p-4 bg-black/40 rounded-xl border border-white/10 overflow-x-auto">
+                <div className={codeBlock}>
                   <code className="text-sm text-cyan-300 font-mono">
                     /api/banner?title=Snapt&tagline=...&features=Beautiful,Fast,Easy,Free&icon=✨
                   </code>
@@ -220,7 +309,7 @@ export default function Home() {
             </Card>
 
             {/* Star History Example */}
-            <Card size="4" className="bg-white/[0.02] backdrop-blur-xl">
+            <Card size="4" className={glassCardSubtle}>
               <Flex direction="column" gap="4">
                 <Flex justify="between" align="center" wrap="wrap" gap="2">
                   <Heading size="5" className="flex items-center gap-2">
@@ -237,14 +326,14 @@ export default function Home() {
                   <img src="/api/star-history?repo=sylphxltd/snapt" alt="Star history example" className="w-full" />
                 </Box>
 
-                <div className="p-4 bg-black/40 rounded-xl border border-white/10 overflow-x-auto">
+                <div className={codeBlock}>
                   <code className="text-sm text-cyan-300 font-mono">/api/star-history?repo=sylphxltd/snapt</code>
                 </div>
               </Flex>
             </Card>
 
             {/* Language Stats Example */}
-            <Card size="4" className="bg-white/[0.02] backdrop-blur-xl">
+            <Card size="4" className={glassCardSubtle}>
               <Flex direction="column" gap="4">
                 <Flex justify="between" align="center" wrap="wrap" gap="2">
                   <Heading size="5" className="flex items-center gap-2">
@@ -261,7 +350,7 @@ export default function Home() {
                   <img src="/api/languages?repo=sylphxltd/snapt" alt="Language stats example" className="w-full" />
                 </Box>
 
-                <div className="p-4 bg-black/40 rounded-xl border border-white/10 overflow-x-auto">
+                <div className={codeBlock}>
                   <code className="text-sm text-cyan-300 font-mono">/api/languages?repo=sylphxltd/snapt</code>
                 </div>
               </Flex>
@@ -273,10 +362,7 @@ export default function Home() {
       {/* CTA Section */}
       <Section size="3" className="relative">
         <Container size="3">
-          <Card
-            size="4"
-            className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-xl border-purple-500/30"
-          >
+          <Card size="4" className={ctaCard}>
             <Flex direction="column" align="center" gap="4" p="6">
               <Icon icon="ph:rocket-launch-fill" className="text-7xl text-purple-400" />
               <Heading size="7" align="center">
@@ -313,7 +399,7 @@ export default function Home() {
               </Text>
             </Flex>
             <Text size="2" color="gray">
-              Open source • MIT License • Built with Radix UI & Iconify
+              Open source • MIT License • Built with Silk, Radix UI & Iconify
             </Text>
           </Flex>
         </Container>
@@ -346,19 +432,7 @@ export default function Home() {
           }
         }
 
-        .animate-float {
-          animation: float 15s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-          animation: float-delayed 15s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
+        @keyframes pulse-slow {
           0%,
           100% {
             opacity: 0.6;

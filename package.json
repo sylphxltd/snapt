@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "biome check .",
     "format": "biome format --write .",
@@ -13,7 +13,8 @@
   "dependencies": {
     "@iconify/react": "^6.0.2",
     "@radix-ui/themes": "^3.2.1",
-    "@sylphx/silk": "^1.1.0",
+    "@sylphx/silk": "^2.0.2",
+    "@sylphx/silk-nextjs": "^2.0.6",
     "@tailwindcss/postcss": "^4.1.17",
     "@vercel/og": "^0.8.5",
     "autoprefixer": "^10.4.21",
