@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import './globals.css';
+import './silk.css';
 
 export const metadata: Metadata = {
   title: 'Snapt - Instant visual identity for your GitHub projects',

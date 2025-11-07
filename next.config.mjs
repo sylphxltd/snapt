@@ -1,12 +1,14 @@
 import { withSilk } from '@sylphx/silk-nextjs';
 
 const nextConfig = {
-  // Use webpack instead of Turbopack (required for Silk plugin)
+  // Silk requires webpack (not supported in Turbopack)
+  // Silence Turbopack warning - we explicitly use webpack via --webpack flag
   turbopack: {},
 };
 
 export default withSilk(nextConfig, {
-  outputFile: 'app/silk.css',
+  // Don't specify outputFile - let Silk handle it automatically
+  inject: true, // Auto-inject CSS into HTML
   babelOptions: {
     production: true,
     classPrefix: 'silk',
