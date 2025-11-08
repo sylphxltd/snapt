@@ -22,6 +22,11 @@ export async function GET(request: NextRequest) {
 
     const features = featuresParam.split(',').map((f) => f.trim()).slice(0, 4);
 
+    // Load font
+    const fontData = await fetch(
+      new URL('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2')
+    ).then((res) => res.arrayBuffer());
+
     // Fetch GitHub stats if repo provided
     let repoData = null;
     if (repo && showStats) {
@@ -212,6 +217,14 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
+        fonts: [
+          {
+            name: 'Inter',
+            data: fontData,
+            style: 'normal',
+            weight: 700,
+          },
+        ],
       }
     );
   } catch (error) {
