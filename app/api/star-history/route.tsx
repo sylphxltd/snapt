@@ -1,4 +1,3 @@
-import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
 import { getStarHistory, getRepo } from '@/lib/github';
 
@@ -37,115 +36,94 @@ export async function GET(request: NextRequest) {
     const pathData = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
     const areaPath = `${pathData} L ${points[points.length - 1].x} ${padding.top + chartHeight} L ${points[0].x} ${padding.top + chartHeight} Z`;
 
-    return new ImageResponse(
-      (
-        <div
-          style={{
-            width: '1280px',
-            height: '640px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            fontFamily: 'sans-serif',
-          }}
-        >
-          <div
-            style={{
-              background: 'rgba(255, 255, 255, 0.98)',
-              borderRadius: '24px',
-              padding: '40px',
-              width: '1200px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '30px',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ fontSize: '32px', fontWeight: 800, color: '#1a1a1a' }}>
-                  {repoData.name}
-                </div>
-                <div style={{ fontSize: '18px', color: '#6b7280' }}>Star History</div>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px 24px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  borderRadius: '12px',
-                  color: 'white',
-                  fontSize: '24px',
-                  fontWeight: 700,
-                }}
-              >
-                <div>⭐</div>
-                <div>{repoData.stargazers_count}</div>
-              </div>
-            </div>
+    const gradientId = `gradient-${Date.now()}`;
+    const areaGradientId = `areaGradient-${Date.now()}`;
+    const lineGradientId = `lineGradient-${Date.now()}`;
 
-            <div style={{ display: 'flex' }}>
-              <svg width={chartWidth + padding.left + padding.right} height={chartHeight + padding.top + padding.bottom}>
-                {[0, 0.25, 0.5, 0.75, 1].map((percent) => {
-                  const y = padding.top + chartHeight - chartHeight * percent;
-                  return (
-                    <g key={percent}>
-                      <line
-                        x1={padding.left}
-                        y1={y}
-                        x2={padding.left + chartWidth}
-                        y2={y}
-                        stroke="#e5e7eb"
-                        strokeWidth="1"
-                      />
-                      <text x={padding.left - 15} y={y + 5} textAnchor="end" fill="#9ca3af" fontSize="14">
-                        {Math.round(maxStars * percent)}
-                      </text>
-                    </g>
-                  );
-                })}
+    const svg = `
+      <svg width="1280" height="640" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="${gradientId}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+          </linearGradient>
+          <linearGradient id="${areaGradientId}" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.3" />
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.05" />
+          </linearGradient>
+          <linearGradient id="${lineGradientId}" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+          </linearGradient>
+        </defs>
 
-                <defs>
-                  <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#667eea" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#764ba2" stopOpacity="0.05" />
-                  </linearGradient>
-                  <linearGradient id="lineGradient" x1="0" x2="1" y1="0" y2="0">
-                    <stop offset="0%" stopColor="#667eea" />
-                    <stop offset="100%" stopColor="#764ba2" />
-                  </linearGradient>
-                </defs>
+        <!-- Background -->
+        <rect width="1280" height="640" fill="url(#${gradientId})"/>
 
-                <path d={areaPath} fill="url(#areaGradient)" />
-                <path d={pathData} fill="none" stroke="url(#lineGradient)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <!-- Container -->
+        <rect x="40" y="40" width="1200" height="560" rx="24" fill="rgba(255,255,255,0.98)"
+              filter="drop-shadow(0 20px 60px rgba(0,0,0,0.3))"/>
 
-                {points.map((point, i) => (
-                  <circle key={i} cx={point.x} cy={point.y} r="4" fill="#667eea" stroke="white" strokeWidth="2" />
-                ))}
+        <!-- Header -->
+        <text x="80" y="105" font-size="32" font-weight="800" fill="#1a1a1a" font-family="system-ui, sans-serif">${escapeXml(repoData.name)}</text>
+        <text x="80" y="135" font-size="18" fill="#6b7280" font-family="system-ui, sans-serif">Star History</text>
 
-                {points
-                  .filter((_, i) => i % Math.ceil(points.length / 6) === 0)
-                  .map((point, i) => (
-                    <text key={i} x={point.x} y={padding.top + chartHeight + 25} textAnchor="middle" fill="#9ca3af" fontSize="14">
-                      {new Date(point.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                    </text>
-                  ))}
-              </svg>
-            </div>
-          </div>
-        </div>
-      ),
-      {
-        width: 1280,
-        height: 640,
-      }
-    );
+        <!-- Star Badge -->
+        <rect x="1050" y="80" width="150" height="48" rx="12" fill="url(#${gradientId})"/>
+        <text x="1075" y="111" font-size="24" font-weight="700" fill="white" font-family="system-ui, sans-serif">⭐ ${repoData.stargazers_count}</text>
+
+        <!-- Chart -->
+        <g transform="translate(40, 150)">
+          <!-- Grid lines -->
+          ${[0, 0.25, 0.5, 0.75, 1].map((percent) => {
+            const y = padding.top + chartHeight - chartHeight * percent;
+            return `
+              <line x1="${padding.left}" y1="${y}" x2="${padding.left + chartWidth}" y2="${y}" stroke="#e5e7eb" stroke-width="1"/>
+              <text x="${padding.left - 15}" y="${y + 5}" font-size="14" fill="#9ca3af" text-anchor="end" font-family="system-ui, sans-serif">${Math.round(maxStars * percent)}</text>
+            `;
+          }).join('')}
+
+          <!-- Area fill -->
+          <path d="${areaPath}" fill="url(#${areaGradientId})"/>
+
+          <!-- Line -->
+          <path d="${pathData}" fill="none" stroke="url(#${lineGradientId})" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Points -->
+          ${points.map(point => `
+            <circle cx="${point.x}" cy="${point.y}" r="4" fill="#667eea" stroke="white" stroke-width="2"/>
+          `).join('')}
+
+          <!-- X-axis labels -->
+          ${points
+            .filter((_, i) => i % Math.ceil(points.length / 6) === 0)
+            .map(point => {
+              const date = new Date(point.date);
+              const label = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+              return `<text x="${point.x}" y="${padding.top + chartHeight + 25}" font-size="14" fill="#9ca3af" text-anchor="middle" font-family="system-ui, sans-serif">${label}</text>`;
+            }).join('')}
+        </g>
+      </svg>
+    `;
+
+    return new Response(svg.trim(), {
+      headers: {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'public, max-age=3600',
+      },
+    });
   } catch (error) {
     console.error('Star history error:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';
     return new Response(`Error: ${message}`, { status: 500 });
   }
+}
+
+function escapeXml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
 }
