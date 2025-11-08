@@ -215,9 +215,7 @@ export async function GET(request: NextRequest) {
         fonts: [
           {
             name: 'Inter',
-            data: await fetch(
-              'https://rsms.me/inter/font-files/Inter-Bold.woff'
-            ).then((res) => res.arrayBuffer()),
+            data: await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2').then((res) => res.arrayBuffer()),
             style: 'normal',
             weight: 700,
           },
