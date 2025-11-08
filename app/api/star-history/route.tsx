@@ -208,14 +208,6 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
-        fonts: [
-          {
-            name: 'Inter',
-            data: await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2').then((res) => res.arrayBuffer()),
-            style: 'normal',
-            weight: 700,
-          },
-        ],
       }
     );
   } catch (error) {
