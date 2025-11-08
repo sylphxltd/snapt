@@ -38,6 +38,10 @@ export async function GET(request: NextRequest) {
 
     const isDark = theme === 'dark';
 
+    const fontData = await fetch(
+      new URL('../../../node_modules/@vercel/og/dist/noto-sans-v27-latin-regular.ttf', import.meta.url)
+    ).then((res) => res.arrayBuffer());
+
     return new ImageResponse(
       (
         <div
@@ -50,7 +54,7 @@ export async function GET(request: NextRequest) {
             background: isDark
               ? '#0a0a0a'
               : `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'Noto Sans, sans-serif',
             position: 'relative',
           }}
         >
@@ -263,6 +267,14 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
+        fonts: [
+          {
+            name: 'Noto Sans',
+            data: fontData,
+            style: 'normal',
+            weight: 400,
+          },
+        ],
       }
     );
   } catch (error) {

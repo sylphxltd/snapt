@@ -23,6 +23,10 @@ export async function GET(request: NextRequest) {
       getStarHistory(owner, repoName),
     ]);
 
+    const fontData = await fetch(
+      new URL('../../../node_modules/@vercel/og/dist/noto-sans-v27-latin-regular.ttf', import.meta.url)
+    ).then((res) => res.arrayBuffer());
+
     const maxStars = Math.max(...history.map((h) => h.stars));
     const chartWidth = 1000;
     const chartHeight = 400;
@@ -53,7 +57,7 @@ export async function GET(request: NextRequest) {
             alignItems: 'center',
             justifyContent: 'center',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            fontFamily: 'system-ui, sans-serif',
+            fontFamily: 'Noto Sans, sans-serif',
           }}
         >
           <div
@@ -208,6 +212,14 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
+        fonts: [
+          {
+            name: 'Noto Sans',
+            data: fontData,
+            style: 'normal',
+            weight: 400,
+          },
+        ],
       }
     );
   } catch (error) {
