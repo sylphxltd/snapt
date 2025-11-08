@@ -8,7 +8,7 @@ export default withSilk(nextConfig, {
   outputFile: 'static/css/silk.css',
   babelOptions: {
     production: true,
-    classPrefix: 'silk',
+    classPrefix: 's',
   },
   compression: {
     brotli: true,
