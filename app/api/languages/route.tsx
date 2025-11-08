@@ -56,10 +56,6 @@ export async function GET(request: NextRequest) {
       .sort((a, b) => b.bytes - a.bytes)
       .slice(0, 6);
 
-    const fontData = await fetch(
-      new URL('../../../node_modules/@vercel/og/dist/noto-sans-v27-latin-regular.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer());
-
     // Calculate donut chart
     const centerX = 200;
     const centerY = 200;
@@ -111,7 +107,7 @@ export async function GET(request: NextRequest) {
             alignItems: 'center',
             justifyContent: 'center',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            fontFamily: 'Noto Sans, sans-serif',
+            fontFamily: 'sans-serif',
           }}
         >
           <div
@@ -127,7 +123,7 @@ export async function GET(request: NextRequest) {
             }}
           >
             {/* Header */}
-            <div style={{ marginBottom: '40px' }}>
+            <div style={{ marginBottom: '40px', display: 'flex', flexDirection: 'column' }}>
               <div
                 style={{
                   fontSize: '32px',
@@ -216,14 +212,6 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
-        fonts: [
-          {
-            name: 'Noto Sans',
-            data: fontData,
-            style: 'normal',
-            weight: 400,
-          },
-        ],
       }
     );
   } catch (error) {

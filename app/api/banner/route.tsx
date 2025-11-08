@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
     const featuresParam = searchParams.get('features');
     const gradient = searchParams.get('gradient')?.split(',') || ['667eea', '764ba2'];
     const icon = searchParams.get('icon') || '✨';
-    const theme = searchParams.get('theme') || 'modern';
     const repo = searchParams.get('repo');
     const showStats = searchParams.get('showStats') !== 'false';
 
@@ -36,12 +35,6 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    const isDark = theme === 'dark';
-
-    const fontData = await fetch(
-      new URL('../../../node_modules/@vercel/og/dist/noto-sans-v27-latin-regular.ttf', import.meta.url)
-    ).then((res) => res.arrayBuffer());
-
     return new ImageResponse(
       (
         <div
@@ -51,35 +44,13 @@ export async function GET(request: NextRequest) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: isDark
-              ? '#0a0a0a'
-              : `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
-            fontFamily: 'Noto Sans, sans-serif',
-            position: 'relative',
+            background: `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
+            fontFamily: 'sans-serif',
           }}
         >
-          {/* Background Effects */}
-          {!isDark && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '-30%',
-                right: '-20%',
-                width: '80%',
-                height: '80%',
-                background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
-                borderRadius: '50%',
-                filter: 'blur(40px)',
-              }}
-            />
-          )}
-
-          {/* Container */}
           <div
             style={{
-              background: isDark
-                ? 'linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%)'
-                : 'rgba(255, 255, 255, 0.95)',
+              background: 'rgba(255, 255, 255, 0.95)',
               borderRadius: '28px',
               padding: '64px 84px',
               width: '1136px',
@@ -87,10 +58,8 @@ export async function GET(request: NextRequest) {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              border: isDark ? '1px solid rgba(255, 215, 0, 0.15)' : '1px solid rgba(255, 255, 255, 0.4)',
-              boxShadow: isDark
-                ? '0 30px 90px rgba(0, 0, 0, 0.5)'
-                : '0 30px 90px rgba(0, 0, 0, 0.25)',
+              border: '1px solid rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 30px 90px rgba(0, 0, 0, 0.25)',
             }}
           >
             {/* Header */}
@@ -104,13 +73,8 @@ export async function GET(request: NextRequest) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontSize: '44px',
-                  background: isDark
-                    ? 'rgba(255, 215, 0, 0.2)'
-                    : `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
-                  border: isDark ? '1px solid rgba(255, 215, 0, 0.3)' : 'none',
-                  boxShadow: isDark
-                    ? '0 10px 40px rgba(255, 215, 0, 0.2)'
-                    : '0 10px 40px rgba(0, 0, 0, 0.2)',
+                  background: `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
+                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
                 }}
               >
                 {icon}
@@ -120,11 +84,9 @@ export async function GET(request: NextRequest) {
                   fontSize: '76px',
                   fontWeight: 800,
                   letterSpacing: '-0.04em',
-                  background: isDark
-                    ? 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%)'
-                    : `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
+                  background: `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
                   backgroundClip: 'text',
-                  color: isDark ? 'transparent' : 'transparent',
+                  color: 'transparent',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -138,7 +100,7 @@ export async function GET(request: NextRequest) {
               style={{
                 fontSize: '38px',
                 fontWeight: 600,
-                color: isDark ? '#b0b0b0' : '#2d3748',
+                color: '#2d3748',
                 lineHeight: 1.35,
                 letterSpacing: '-0.015em',
               }}
@@ -147,13 +109,7 @@ export async function GET(request: NextRequest) {
             </div>
 
             {/* Features */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '26px',
-              }}
-            >
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '26px' }}>
               {features.map((feature, i) => (
                 <div
                   key={i}
@@ -163,7 +119,7 @@ export async function GET(request: NextRequest) {
                     gap: '16px',
                     fontSize: '26px',
                     fontWeight: 500,
-                    color: isDark ? '#d0d0d0' : '#4a5568',
+                    color: '#4a5568',
                     width: features.length <= 2 ? '100%' : '48%',
                   }}
                 >
@@ -176,10 +132,7 @@ export async function GET(request: NextRequest) {
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontSize: '20px',
-                      background: isDark
-                        ? 'rgba(255, 215, 0, 0.2)'
-                        : `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
-                      border: isDark ? '1px solid rgba(255, 215, 0, 0.3)' : 'none',
+                      background: `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
                     }}
                   >
                     {['⚡', '🎯', '📦', '🚀'][i]}
@@ -196,15 +149,13 @@ export async function GET(request: NextRequest) {
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 paddingTop: '26px',
-                borderTop: isDark
-                  ? '1px solid rgba(255, 215, 0, 0.15)'
-                  : '2px solid rgba(0, 0, 0, 0.08)',
+                borderTop: '2px solid rgba(0, 0, 0, 0.08)',
               }}
             >
               <div
                 style={{
                   fontSize: '23px',
-                  color: isDark ? '#909090' : '#718096',
+                  color: '#718096',
                   fontWeight: 500,
                 }}
               >
@@ -222,13 +173,10 @@ export async function GET(request: NextRequest) {
                       borderRadius: '10px',
                       fontSize: '18px',
                       fontWeight: 600,
-                      background: isDark
-                        ? 'linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%)'
-                        : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
-                      border: isDark
-                        ? '1px solid rgba(255, 215, 0, 0.25)'
-                        : '1px solid rgba(255, 255, 255, 0.5)',
-                      color: isDark ? '#ffd700' : '#2d3748',
+                      background:
+                        'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
+                      border: '1px solid rgba(255, 255, 255, 0.5)',
+                      color: '#2d3748',
                     }}
                   >
                     <span style={{ fontSize: '16px' }}>⭐</span>
@@ -245,13 +193,10 @@ export async function GET(request: NextRequest) {
                         borderRadius: '10px',
                         fontSize: '18px',
                         fontWeight: 600,
-                        background: isDark
-                          ? 'linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%)'
-                          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
-                        border: isDark
-                          ? '1px solid rgba(255, 215, 0, 0.25)'
-                          : '1px solid rgba(255, 255, 255, 0.5)',
-                        color: isDark ? '#ffd700' : '#2d3748',
+                        background:
+                          'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)',
+                        border: '1px solid rgba(255, 255, 255, 0.5)',
+                        color: '#2d3748',
                       }}
                     >
                       <span style={{ fontSize: '16px' }}>📝</span>
@@ -267,14 +212,6 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
-        fonts: [
-          {
-            name: 'Noto Sans',
-            data: fontData,
-            style: 'normal',
-            weight: 400,
-          },
-        ],
       }
     );
   } catch (error) {
