@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import { Theme } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,11 +18,7 @@ export default function RootLayout({
         {/* Silk CSS is automatically generated to static/css/silk.css */}
         <link rel="stylesheet" href="/_next/static/css/silk.css" />
       </head>
-      <body>
-        <Theme appearance="dark" accentColor="purple" grayColor="mauve" radius="large">
-          {children}
-        </Theme>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

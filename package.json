@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
-    "@radix-ui/themes": "^3.2.1",
     "@sylphx/babel-plugin-silk": "^2.0.0",
     "@sylphx/silk": "^2.0.2",
     "@sylphx/silk-nextjs": "^2.1.7",

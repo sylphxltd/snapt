@@ -1,61 +1,220 @@
 'use client';
 
-import { css } from '@sylphx/silk';
-import { Button, Container, Flex, Heading, Text, Badge, Card, Box, Section } from '@radix-ui/themes';
 import { Icon } from '@iconify/react';
+import { css } from '@sylphx/silk';
 
-const floatingOrb = css({
-  position: 'absolute',
-  borderRadius: '50%',
-  opacity: 0.3,
-  filter: 'blur(120px)',
-  pointerEvents: 'none',
-  animation: 'float 15s ease-in-out infinite',
-});
-
-const floatingOrbDelayed = css({
-  position: 'absolute',
-  borderRadius: '50%',
-  opacity: 0.25,
-  filter: 'blur(120px)',
-  pointerEvents: 'none',
-  animation: 'float-delayed 15s ease-in-out infinite',
-});
-
-const heroSection = css({
+// Hero Section Styles
+const hero = css({
   position: 'relative',
   minHeight: '100vh',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   overflow: 'hidden',
+  padding: { base: '80px 24px', md: '120px 48px' },
 });
 
-const heroPulse = css({
-  position: 'absolute',
+const heroBackground = css({
+  position: 'fixed',
   inset: 0,
-  animation: 'pulse-slow 8s ease-in-out infinite',
-  background: 'radial-gradient(circle at 20% 20%, rgba(120, 119, 198, 0.08), transparent 50%), radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.08), transparent 50%)',
+  overflow: 'hidden',
+  pointerEvents: 'none',
+  zIndex: -10,
 });
 
-const gradientText = css({
+const floatingOrb = css({
+  position: 'absolute',
+  borderRadius: '50%',
+  filter: 'blur(120px)',
+  pointerEvents: 'none',
+});
+
+const orb1 = css({
+  top: '10%',
+  left: '10%',
+  width: '600px',
+  height: '600px',
+  background: 'radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%)',
+  animation: 'float 15s ease-in-out infinite',
+  opacity: 0.3,
+});
+
+const orb2 = css({
+  bottom: '10%',
+  right: '10%',
+  width: '700px',
+  height: '700px',
+  background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15), transparent 70%)',
+  animation: 'float-delayed 15s ease-in-out infinite',
+  opacity: 0.25,
+});
+
+const heroContent = css({
+  maxWidth: '1200px',
+  textAlign: 'center',
+  zIndex: 1,
+});
+
+const badge = css({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '8px',
+  padding: '8px 20px',
+  borderRadius: '100px',
+  background: 'rgba(255, 255, 255, 0.05)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  backdropFilter: 'blur(10px)',
+  fontSize: '14px',
+  fontWeight: 500,
+  marginBottom: '32px',
+});
+
+const heading = css({
+  fontSize: { base: '48px', md: '72px', lg: '96px' },
+  fontWeight: 900,
+  lineHeight: 1.1,
+  marginBottom: '24px',
   background: 'linear-gradient(135deg, #fff 0%, #a78bfa 50%, #ec4899 100%)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
-  fontWeight: 900,
+  backgroundSize: '200% 200%',
+  animation: 'gradient-shift 8s ease infinite',
 });
 
-const glassCard = css({
-  background: 'rgba(255, 255, 255, 0.03)',
-  backdropFilter: 'blur(20px)',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-  borderRadius: '24px',
+const description = css({
+  fontSize: { base: '18px', md: '22px' },
+  lineHeight: 1.6,
+  color: 'rgba(255, 255, 255, 0.8)',
+  maxWidth: '700px',
+  margin: '0 auto 48px',
+});
+
+const highlight = css({
+  color: '#a78bfa',
+  fontWeight: 600,
+});
+
+const ctaGroup = css({
+  display: 'flex',
+  gap: '16px',
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  marginBottom: '64px',
+});
+
+const button = css({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '8px',
+  padding: '16px 32px',
+  fontSize: '16px',
+  fontWeight: 600,
+  borderRadius: '12px',
+  cursor: 'pointer',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  textDecoration: 'none',
+  border: 'none',
+});
+
+const buttonPrimary = css({
+  background: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+  color: '#fff',
+  boxShadow: '0 10px 40px rgba(139, 92, 246, 0.3)',
+  _hover: {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 20px 60px rgba(139, 92, 246, 0.5)',
+  },
+});
+
+const buttonSecondary = css({
+  background: 'rgba(255, 255, 255, 0.05)',
+  border: '2px solid rgba(255, 255, 255, 0.2)',
+  color: '#fff',
+  _hover: {
+    background: 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+});
+
+const stats = css({
+  display: 'flex',
+  gap: { base: '32px', md: '64px' },
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+});
+
+const stat = css({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '8px',
+});
+
+const statValue = css({
+  fontSize: { base: '32px', md: '48px' },
+  fontWeight: 900,
+  background: 'linear-gradient(135deg, #fff 0%, #a78bfa 50%, #ec4899 100%)',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+});
+
+const statLabel = css({
+  fontSize: '14px',
+  color: 'rgba(255, 255, 255, 0.6)',
+  textTransform: 'uppercase',
+  letterSpacing: '1px',
+});
+
+// Features Section Styles
+const section = css({
+  padding: { base: '80px 24px', md: '120px 48px' },
+  position: 'relative',
+});
+
+const container = css({
+  maxWidth: '1200px',
+  margin: '0 auto',
+});
+
+const sectionHeader = css({
+  textAlign: 'center',
+  marginBottom: '64px',
+});
+
+const sectionTitle = css({
+  fontSize: { base: '36px', md: '56px' },
+  fontWeight: 900,
+  marginBottom: '16px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '16px',
+});
+
+const sectionSubtitle = css({
+  fontSize: { base: '16px', md: '20px' },
+  color: 'rgba(255, 255, 255, 0.7)',
+  maxWidth: '600px',
+  margin: '0 auto',
+});
+
+const featuresGrid = css({
+  display: 'grid',
+  gridTemplateColumns: { base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
+  gap: '24px',
+});
+
+const featureCard = css({
   padding: '32px',
+  borderRadius: '24px',
+  background: 'rgba(255, 255, 255, 0.03)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  backdropFilter: 'blur(20px)',
   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   _hover: {
     transform: 'translateY(-4px)',
-    boxShadow: '0 20px 60px rgba(139, 92, 246, 0.3)',
     borderColor: 'rgba(139, 92, 246, 0.3)',
+    boxShadow: '0 20px 60px rgba(139, 92, 246, 0.3)',
   },
 });
 
@@ -63,388 +222,411 @@ const featureIcon = css({
   fontSize: '64px',
   marginBottom: '16px',
   transition: 'transform 0.3s ease',
-  '.group:hover &': {
-    transform: 'scale(1.1)',
-  },
 });
 
-const featureGrid = css({
-  display: 'grid',
-  gridTemplateColumns: {
-    base: '1fr',
-    md: 'repeat(2, 1fr)',
-    lg: 'repeat(3, 1fr)',
+const featureTitle = css({
+  fontSize: '24px',
+  fontWeight: 700,
+  marginBottom: '12px',
+});
+
+const featureDescription = css({
+  fontSize: '16px',
+  lineHeight: 1.6,
+  color: 'rgba(255, 255, 255, 0.7)',
+});
+
+// Examples Section Styles
+const examplesGrid = css({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '32px',
+});
+
+const exampleCard = css({
+  borderRadius: '24px',
+  background: 'rgba(255, 255, 255, 0.02)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  backdropFilter: 'blur(20px)',
+  overflow: 'hidden',
+  padding: '32px',
+});
+
+const exampleHeader = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '16px',
+  marginBottom: '24px',
+});
+
+const exampleTitle = css({
+  fontSize: '28px',
+  fontWeight: 700,
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
+});
+
+const exampleBadge = css({
+  padding: '6px 16px',
+  borderRadius: '100px',
+  fontSize: '14px',
+  fontWeight: 500,
+  display: 'flex',
+  alignItems: 'center',
+  gap: '6px',
+});
+
+const badgeBlue = css({
+  background: 'rgba(59, 130, 246, 0.1)',
+  border: '1px solid rgba(59, 130, 246, 0.3)',
+  color: '#60a5fa',
+});
+
+const badgePurple = css({
+  background: 'rgba(139, 92, 246, 0.1)',
+  border: '1px solid rgba(139, 92, 246, 0.3)',
+  color: '#a78bfa',
+});
+
+const badgePink = css({
+  background: 'rgba(236, 72, 153, 0.1)',
+  border: '1px solid rgba(236, 72, 153, 0.3)',
+  color: '#f472b6',
+});
+
+const exampleImage = css({
+  borderRadius: '12px',
+  overflow: 'hidden',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  marginBottom: '20px',
+  '& img': {
+    width: '100%',
+    display: 'block',
   },
-  gap: '24px',
 });
 
 const codeBlock = css({
   padding: '16px',
-  background: 'rgba(0, 0, 0, 0.4)',
   borderRadius: '12px',
+  background: 'rgba(0, 0, 0, 0.4)',
   border: '1px solid rgba(255, 255, 255, 0.1)',
   overflowX: 'auto',
 });
 
-const glassCardSubtle = css({
-  background: 'rgba(255, 255, 255, 0.02)',
-  backdropFilter: 'blur(20px)',
+const code = css({
+  fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+  fontSize: '14px',
+  color: '#67e8f9',
+});
+
+// CTA Section Styles
+const ctaSection = css({
+  padding: '80px 24px',
+  position: 'relative',
 });
 
 const ctaCard = css({
+  maxWidth: '900px',
+  margin: '0 auto',
+  padding: { base: '48px 32px', md: '64px 48px' },
+  borderRadius: '32px',
   background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2))',
+  border: '1px solid rgba(139, 92, 246, 0.3)',
   backdropFilter: 'blur(20px)',
-  borderColor: 'rgba(139, 92, 246, 0.3)',
+  textAlign: 'center',
+});
+
+const ctaIcon = css({
+  fontSize: '72px',
+  marginBottom: '24px',
+  color: '#a78bfa',
+});
+
+const ctaTitle = css({
+  fontSize: { base: '32px', md: '48px' },
+  fontWeight: 900,
+  marginBottom: '16px',
+});
+
+const ctaDescription = css({
+  fontSize: { base: '16px', md: '20px' },
+  color: 'rgba(255, 255, 255, 0.8)',
+  marginBottom: '32px',
+});
+
+// Footer Styles
+const footer = css({
+  padding: '48px 24px',
+  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+});
+
+const footerContent = css({
+  maxWidth: '1200px',
+  margin: '0 auto',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '16px',
+  textAlign: 'center',
+});
+
+const footerLinks = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  fontSize: '16px',
+  color: 'rgba(255, 255, 255, 0.7)',
+});
+
+const footerLink = css({
+  color: '#a78bfa',
+  textDecoration: 'none',
+  fontWeight: 600,
+  transition: 'color 0.3s ease',
+  _hover: {
+    color: '#c4b5fd',
+  },
+});
+
+const copyright = css({
+  fontSize: '14px',
+  color: 'rgba(255, 255, 255, 0.5)',
 });
 
 export default function Home() {
+  const features = [
+    {
+      icon: 'ph:image-fill',
+      title: 'Social Banners',
+      description: 'Beautiful 1280×640px banners with live GitHub stats, perfect for social media sharing',
+      color: '#60a5fa',
+    },
+    {
+      icon: 'ph:chart-line-up-fill',
+      title: 'Star History',
+      description: 'Elegant charts showing your repository growth over time with smooth gradients',
+      color: '#a78bfa',
+    },
+    {
+      icon: 'ph:code-fill',
+      title: 'Language Stats',
+      description: 'Visual breakdown of your codebase languages with beautiful donut charts',
+      color: '#f472b6',
+    },
+    {
+      icon: 'ph:lightning-fill',
+      title: 'Edge Runtime',
+      description: 'Lightning-fast image generation using Vercel Edge Functions and Satori',
+      color: '#fbbf24',
+    },
+    {
+      icon: 'ph:lock-key-fill',
+      title: 'Type Safe',
+      description: 'Built with TypeScript and Silk for complete type safety and performance',
+      color: '#34d399',
+    },
+    {
+      icon: 'ph:rocket-launch-fill',
+      title: 'Zero Config',
+      description: 'Just pass URL parameters and get stunning images instantly, no setup required',
+      color: '#67e8f9',
+    },
+  ];
+
   return (
-    <main className="relative">
-      {/* Animated Background Orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        <div
-          className={floatingOrb}
-          style={{
-            top: '10%',
-            left: '10%',
-            width: '600px',
-            height: '600px',
-            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.2), transparent 70%)',
-          }}
-        />
-        <div
-          className={floatingOrbDelayed}
-          style={{
-            bottom: '10%',
-            right: '10%',
-            width: '700px',
-            height: '700px',
-            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15), transparent 70%)',
-          }}
-        />
-      </div>
-
+    <main>
       {/* Hero Section */}
-      <section className={heroSection}>
-        <div className={heroPulse} />
+      <section className={hero}>
+        <div className={heroBackground}>
+          <div className={`${floatingOrb} ${orb1}`} />
+          <div className={`${floatingOrb} ${orb2}`} />
+        </div>
 
-        <Container size="4" className="relative z-10">
-          <Flex direction="column" align="center" gap="6">
-            {/* Status Badge */}
-            <Badge size="3" radius="full" variant="surface" className="shadow-lg shadow-purple-500/20">
-              <Flex align="center" gap="2">
-                <Icon icon="ph:lightning-fill" className="text-amber-400" />
-                <Text>Powered by Next.js 16 + Bun + Silk</Text>
-              </Flex>
-            </Badge>
+        <div className={heroContent}>
+          <div className={badge}>
+            <Icon icon="ph:lightning-fill" style={{ color: '#fbbf24' }} />
+            <span>Powered by Next.js 16 + Bun + Silk</span>
+          </div>
 
-            {/* Title */}
-            <Heading size="9" align="center" className={gradientText}>
-              Snapt
-            </Heading>
+          <h1 className={heading}>Snapt</h1>
 
-            {/* Subtitle */}
-            <Text size="6" align="center" color="gray" className="max-w-[700px]">
-              Transform your GitHub repositories into{' '}
-              <Text weight="bold" className="text-purple-400">
-                stunning visual assets
-              </Text>{' '}
-              with dynamic image generation
-            </Text>
+          <p className={description}>
+            Transform your GitHub repositories into <span className={highlight}>stunning visual assets</span> with
+            dynamic image generation
+          </p>
 
-            {/* CTA Buttons */}
-            <Flex gap="4" wrap="wrap" justify="center" mt="4">
-              <Button size="4" variant="solid" className="shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 transition-all" asChild>
-                <a href="#examples" className="flex items-center gap-2">
-                  <Icon icon="ph:sparkle-fill" />
-                  See Examples
-                  <Icon icon="ph:arrow-right-bold" />
-                </a>
-              </Button>
-              <Button size="4" variant="outline" className="hover:bg-white/10 transition-all" asChild>
-                <a href="https://github.com/sylphxltd/snapt" target="_blank" className="flex items-center gap-2">
-                  <Icon icon="ph:github-logo-fill" />
-                  View on GitHub
-                </a>
-              </Button>
-            </Flex>
+          <div className={ctaGroup}>
+            <a href="#examples" className={`${button} ${buttonPrimary}`}>
+              <Icon icon="ph:sparkle-fill" />
+              See Examples
+              <Icon icon="ph:arrow-right-bold" />
+            </a>
+            <a
+              href="https://github.com/sylphxltd/snapt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${button} ${buttonSecondary}`}
+            >
+              <Icon icon="ph:github-logo-fill" />
+              View on GitHub
+            </a>
+          </div>
 
-            {/* Quick Stats */}
-            <Flex gap="6" mt="6" wrap="wrap" justify="center">
-              <Flex direction="column" align="center" gap="1">
-                <Text size="7" weight="bold" className={gradientText}>
-                  500B
-                </Text>
-                <Text size="2" color="gray">
-                  Ultra-light
-                </Text>
-              </Flex>
-              <Flex direction="column" align="center" gap="1">
-                <Text size="7" weight="bold" className={gradientText}>
-                  1280×640
-                </Text>
-                <Text size="2" color="gray">
-                  Perfect size
-                </Text>
-              </Flex>
-              <Flex direction="column" align="center" gap="1">
-                <Icon icon="ph:infinity-bold" className={`text-5xl ${gradientText}`} />
-                <Text size="2" color="gray">
-                  Free forever
-                </Text>
-              </Flex>
-            </Flex>
-          </Flex>
-        </Container>
+          <div className={stats}>
+            <div className={stat}>
+              <div className={statValue}>500B</div>
+              <div className={statLabel}>Ultra-light</div>
+            </div>
+            <div className={stat}>
+              <div className={statValue}>1280×640</div>
+              <div className={statLabel}>Perfect size</div>
+            </div>
+            <div className={stat}>
+              <Icon icon="ph:infinity-bold" style={{ fontSize: '48px', color: '#a78bfa' }} />
+              <div className={statLabel}>Free forever</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}
-      <Section size="3" className="relative">
-        <Container size="4">
-          <Flex direction="column" gap="6" mb="8">
-            <Heading size="8" align="center" className="flex items-center justify-center gap-3">
+      <section className={section}>
+        <div className={container}>
+          <div className={sectionHeader}>
+            <h2 className={sectionTitle}>
               <Icon icon="ph:magic-wand-fill" />
               Powerful Features
-            </Heading>
-            <Text size="4" align="center" color="gray" className="max-w-[600px] mx-auto">
-              Everything you need to create professional GitHub assets
-            </Text>
-          </Flex>
+            </h2>
+            <p className={sectionSubtitle}>Everything you need to create professional GitHub assets</p>
+          </div>
 
-          <div className={featureGrid}>
-            {[
-              {
-                icon: 'ph:image-fill',
-                title: 'Social Banners',
-                desc: 'Beautiful 1280×640px banners with live GitHub stats, perfect for social media sharing',
-                color: 'text-blue-400',
-              },
-              {
-                icon: 'ph:chart-line-up-fill',
-                title: 'Star History',
-                desc: 'Elegant charts showing your repository growth over time with smooth gradients',
-                color: 'text-purple-400',
-              },
-              {
-                icon: 'ph:code-fill',
-                title: 'Language Stats',
-                desc: 'Visual breakdown of your codebase languages with beautiful donut charts',
-                color: 'text-pink-400',
-              },
-              {
-                icon: 'ph:lightning-fill',
-                title: 'Edge Runtime',
-                desc: 'Lightning-fast image generation using Vercel Edge Functions and Satori',
-                color: 'text-amber-400',
-              },
-              {
-                icon: 'ph:lock-key-fill',
-                title: 'Type Safe',
-                desc: 'Built with TypeScript and Silk for complete type safety and performance',
-                color: 'text-emerald-400',
-              },
-              {
-                icon: 'ph:rocket-launch-fill',
-                title: 'Zero Config',
-                desc: 'Just pass URL parameters and get stunning images instantly, no setup required',
-                color: 'text-cyan-400',
-              },
-            ].map((feature, i) => (
-              <div key={i} className={`group ${glassCard}`}>
-                <Icon icon={feature.icon} className={`${featureIcon} ${feature.color}`} />
-                <Heading size="5" mb="2">
-                  {feature.title}
-                </Heading>
-                <Text color="gray">{feature.desc}</Text>
+          <div className={featuresGrid}>
+            {features.map((feature, index) => (
+              <div key={index} className={featureCard}>
+                <Icon icon={feature.icon} className={featureIcon} style={{ color: feature.color }} />
+                <h3 className={featureTitle}>{feature.title}</h3>
+                <p className={featureDescription}>{feature.description}</p>
               </div>
             ))}
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Examples Section */}
-      <Section id="examples" size="3" className="relative">
-        <Container size="4">
-          <Flex direction="column" gap="6" mb="8">
-            <Heading size="8" align="center" className="flex items-center justify-center gap-3">
+      <section id="examples" className={section}>
+        <div className={container}>
+          <div className={sectionHeader}>
+            <h2 className={sectionTitle}>
               <Icon icon="ph:images-fill" />
               Live Examples
-            </Heading>
-            <Text size="4" align="center" color="gray">
-              See what you can create with Snapt
-            </Text>
-          </Flex>
+            </h2>
+            <p className={sectionSubtitle}>See what you can create with Snapt</p>
+          </div>
 
-          <Flex direction="column" gap="8">
-            {/* Banner Example */}
-            <Card size="4" className={glassCardSubtle}>
-              <Flex direction="column" gap="4">
-                <Flex justify="between" align="center" wrap="wrap" gap="2">
-                  <Heading size="5" className="flex items-center gap-2">
-                    <Icon icon="ph:image-fill" />
-                    Social Banner
-                  </Heading>
-                  <Badge color="blue" className="flex items-center gap-1">
-                    <Icon icon="ph:code-simple-fill" />
-                    /api/banner
-                  </Badge>
-                </Flex>
-
-                <Box className="rounded-xl overflow-hidden border border-white/10">
-                  <img
-                    src="/api/banner?title=Snapt&tagline=Transform your GitHub repos into stunning visuals&features=Beautiful,Fast,Easy,Free&gradient=667eea,764ba2&icon=✨&theme=modern"
-                    alt="Banner example"
-                    className="w-full"
-                  />
-                </Box>
-
-                <div className={codeBlock}>
-                  <code className="text-sm text-cyan-300 font-mono">
-                    /api/banner?title=Snapt&tagline=...&features=Beautiful,Fast,Easy,Free&icon=✨
-                  </code>
+          <div className={examplesGrid}>
+            {/* Social Banner Example */}
+            <div className={exampleCard}>
+              <div className={exampleHeader}>
+                <h3 className={exampleTitle}>
+                  <Icon icon="ph:image-fill" />
+                  Social Banner
+                </h3>
+                <div className={`${exampleBadge} ${badgeBlue}`}>
+                  <Icon icon="ph:code-simple-fill" />
+                  /api/banner
                 </div>
-              </Flex>
-            </Card>
+              </div>
+              <div className={exampleImage}>
+                <img
+                  src="/api/banner?title=Snapt&tagline=Transform your GitHub repos into stunning visuals&features=Beautiful,Fast,Easy,Free&gradient=667eea,764ba2&icon=✨&theme=modern"
+                  alt="Banner example"
+                />
+              </div>
+              <div className={codeBlock}>
+                <code className={code}>
+                  /api/banner?title=Snapt&tagline=...&features=Beautiful,Fast,Easy,Free&icon=✨
+                </code>
+              </div>
+            </div>
 
             {/* Star History Example */}
-            <Card size="4" className={glassCardSubtle}>
-              <Flex direction="column" gap="4">
-                <Flex justify="between" align="center" wrap="wrap" gap="2">
-                  <Heading size="5" className="flex items-center gap-2">
-                    <Icon icon="ph:chart-line-up-fill" />
-                    Star History
-                  </Heading>
-                  <Badge color="purple" className="flex items-center gap-1">
-                    <Icon icon="ph:code-simple-fill" />
-                    /api/star-history
-                  </Badge>
-                </Flex>
-
-                <Box className="rounded-xl overflow-hidden border border-white/10">
-                  <img src="/api/star-history?repo=sylphxltd/snapt" alt="Star history example" className="w-full" />
-                </Box>
-
-                <div className={codeBlock}>
-                  <code className="text-sm text-cyan-300 font-mono">/api/star-history?repo=sylphxltd/snapt</code>
+            <div className={exampleCard}>
+              <div className={exampleHeader}>
+                <h3 className={exampleTitle}>
+                  <Icon icon="ph:chart-line-up-fill" />
+                  Star History
+                </h3>
+                <div className={`${exampleBadge} ${badgePurple}`}>
+                  <Icon icon="ph:code-simple-fill" />
+                  /api/star-history
                 </div>
-              </Flex>
-            </Card>
+              </div>
+              <div className={exampleImage}>
+                <img src="/api/star-history?repo=sylphxltd/snapt" alt="Star history example" />
+              </div>
+              <div className={codeBlock}>
+                <code className={code}>/api/star-history?repo=sylphxltd/snapt</code>
+              </div>
+            </div>
 
             {/* Language Stats Example */}
-            <Card size="4" className={glassCardSubtle}>
-              <Flex direction="column" gap="4">
-                <Flex justify="between" align="center" wrap="wrap" gap="2">
-                  <Heading size="5" className="flex items-center gap-2">
-                    <Icon icon="ph:code-fill" />
-                    Language Distribution
-                  </Heading>
-                  <Badge color="pink" className="flex items-center gap-1">
-                    <Icon icon="ph:code-simple-fill" />
-                    /api/languages
-                  </Badge>
-                </Flex>
-
-                <Box className="rounded-xl overflow-hidden border border-white/10">
-                  <img src="/api/languages?repo=sylphxltd/snapt" alt="Language stats example" className="w-full" />
-                </Box>
-
-                <div className={codeBlock}>
-                  <code className="text-sm text-cyan-300 font-mono">/api/languages?repo=sylphxltd/snapt</code>
+            <div className={exampleCard}>
+              <div className={exampleHeader}>
+                <h3 className={exampleTitle}>
+                  <Icon icon="ph:code-fill" />
+                  Language Distribution
+                </h3>
+                <div className={`${exampleBadge} ${badgePink}`}>
+                  <Icon icon="ph:code-simple-fill" />
+                  /api/languages
                 </div>
-              </Flex>
-            </Card>
-          </Flex>
-        </Container>
-      </Section>
+              </div>
+              <div className={exampleImage}>
+                <img src="/api/languages?repo=sylphxltd/snapt" alt="Language stats example" />
+              </div>
+              <div className={codeBlock}>
+                <code className={code}>/api/languages?repo=sylphxltd/snapt</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
-      <Section size="3" className="relative">
-        <Container size="3">
-          <Card size="4" className={ctaCard}>
-            <Flex direction="column" align="center" gap="4" p="6">
-              <Icon icon="ph:rocket-launch-fill" className="text-7xl text-purple-400" />
-              <Heading size="7" align="center">
-                Ready to elevate your repositories?
-              </Heading>
-              <Text size="4" align="center" color="gray">
-                Start generating beautiful images in seconds
-              </Text>
-              <Flex gap="4" mt="4">
-                <Button size="4" variant="solid" className="shadow-lg shadow-purple-500/30" asChild>
-                  <a href="https://github.com/sylphxltd/snapt" target="_blank" className="flex items-center gap-2">
-                    <Icon icon="ph:github-logo-fill" />
-                    View Documentation
-                  </a>
-                </Button>
-              </Flex>
-            </Flex>
-          </Card>
-        </Container>
-      </Section>
+      <section className={ctaSection}>
+        <div className={ctaCard}>
+          <Icon icon="ph:rocket-launch-fill" className={ctaIcon} />
+          <h2 className={ctaTitle}>Ready to elevate your repositories?</h2>
+          <p className={ctaDescription}>Start generating beautiful images in seconds</p>
+          <a
+            href="https://github.com/sylphxltd/snapt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${button} ${buttonPrimary}`}
+          >
+            <Icon icon="ph:github-logo-fill" />
+            View Documentation
+          </a>
+        </div>
+      </section>
 
       {/* Footer */}
-      <Section size="2" className="relative">
-        <Container size="4">
-          <Flex direction="column" align="center" gap="3" className="border-t border-white/10 pt-8">
-            <Flex align="center" gap="2">
-              <Text color="gray">Made with</Text>
-              <Icon icon="ph:heart-fill" className="text-pink-500" />
-              <Text color="gray">by</Text>
-              <Text weight="bold">
-                <a href="https://github.com/sylphxltd" className="text-purple-400 hover:text-purple-300 transition-colors">
-                  SylphX
-                </a>
-              </Text>
-            </Flex>
-            <Text size="2" color="gray">
-              Open source • MIT License • Built with Silk, Radix UI & Iconify
-            </Text>
-          </Flex>
-        </Container>
-      </Section>
-
-      <style jsx global>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-          }
-          33% {
-            transform: translate(30px, -30px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-        }
-
-        @keyframes float-delayed {
-          0%,
-          100% {
-            transform: translate(0, 0) scale(1);
-          }
-          33% {
-            transform: translate(-30px, 30px) scale(1.1);
-          }
-          66% {
-            transform: translate(20px, -20px) scale(0.9);
-          }
-        }
-
-        @keyframes pulse-slow {
-          0%,
-          100% {
-            opacity: 0.6;
-          }
-          50% {
-            opacity: 0.8;
-          }
-        }
-
-        body {
-          background: linear-gradient(135deg, #0a0a18 0%, #130b1f 50%, #0f0616 100%);
-          min-height: 100vh;
-        }
-      `}</style>
+      <footer className={footer}>
+        <div className={footerContent}>
+          <div className={footerLinks}>
+            <span>Made with</span>
+            <Icon icon="ph:heart-fill" style={{ color: '#f472b6' }} />
+            <span>by</span>
+            <a href="https://github.com/sylphxltd" className={footerLink}>
+              SylphX
+            </a>
+          </div>
+          <p className={copyright}>Open source • MIT License • Built with Silk, Tailwind & Iconify</p>
+        </div>
+      </footer>
     </main>
   );
 }
