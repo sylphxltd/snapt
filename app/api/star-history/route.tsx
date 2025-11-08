@@ -208,6 +208,16 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
+        fonts: [
+          {
+            name: 'Inter',
+            data: await fetch(
+              'https://rsms.me/inter/font-files/Inter-Bold.woff'
+            ).then((res) => res.arrayBuffer()),
+            style: 'normal',
+            weight: 700,
+          },
+        ],
       }
     );
   } catch (error) {

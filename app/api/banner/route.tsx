@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
             background: isDark
               ? '#0a0a0a'
               : `linear-gradient(135deg, #${gradient[0]} 0%, #${gradient[1]} 100%)`,
-            fontFamily: 'system-ui, sans-serif',
+            fontFamily: 'Inter, sans-serif',
             position: 'relative',
           }}
         >
@@ -263,6 +263,16 @@ export async function GET(request: NextRequest) {
       {
         width: 1280,
         height: 640,
+        fonts: [
+          {
+            name: 'Inter',
+            data: await fetch(
+              new URL('https://rsms.me/inter/font-files/Inter-Bold.woff', import.meta.url)
+            ).then((res) => res.arrayBuffer()),
+            style: 'normal',
+            weight: 700,
+          },
+        ],
       }
     );
   } catch (error) {
