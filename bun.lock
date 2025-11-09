@@ -6,7 +6,7 @@
       "dependencies": {
         "@iconify/react": "^6.0.2",
         "@sylphx/silk": "^2.1.0",
-        "@sylphx/silk-nextjs": "3.1.0",
+        "@sylphx/silk-nextjs": "^3.1.0",
         "@sylphx/silk-react": "^2.0.2",
         "@tailwindcss/postcss": "^4.1.17",
         "@vercel/og": "^0.8.5",

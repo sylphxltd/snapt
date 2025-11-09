@@ -1,4 +1,4 @@
-# Turbopack Mode Status - Silk 3.1.0
+# Turbopack Mode Status - Silk 3.1.0 (Updated after package refresh)
 
 ## Current Issue
 
@@ -85,10 +85,51 @@ For Snapt project (which uses `css()` extensively in page.tsx):
 - **Must use webpack mode with Babel plugin**
 - Turbopack requires SWC plugin (not yet implemented by Silk team)
 
-## Reported to User
-User's "方案 1: Turbopack Mode (推薦 Next.js 16)" configuration doesn't work because page.tsx uses `css()` runtime API.
+## Package Update Test (After "全部silk packages更新")
 
-Need clarification from user whether:
-1. Silk has SWC plugin we're missing?
-2. Should refactor to avoid `css()` runtime calls?
-3. Should stay on webpack mode?
+Updated all @sylphx packages to latest:
+- @sylphx/silk@2.1.0 (already latest)
+- @sylphx/silk-nextjs@3.1.0 (already latest)
+- @sylphx/silk-react@2.0.2 (already latest)
+- @sylphx/silk-cli@1.0.2 (already latest)
+
+**Result**: Same error persists.
+
+### SWC Plugin Discovery
+
+Found `swc_plugin_silk.wasm` in `node_modules/@sylphx/silk-nextjs/dist/`
+
+BUT: withSilk() function doesn't configure it for Turbopack. When `turbopack: true`:
+- Line 76-84: Just skips webpack plugin injection
+- No SWC plugin configuration added to Next.js config
+- No experimental.turbopack.rules setup
+
+### Documentation vs Implementation Gap
+
+README shows Turbopack mode requires:
+1. CLI generation (predev/prebuild scripts) ✅ We have this
+2. Import physical CSS file in layout ✅ We have this
+3. **NO `css()` calls in components** ❌ page.tsx uses css() extensively
+
+README example for Turbopack mode:
+```typescript
+// app/layout.tsx
+import '../src/silk.generated.css'  // Physical file, no virtual module
+```
+
+NOT:
+```typescript
+const styles = css({ ... })  // This requires transformation
+```
+
+## Conclusion After Testing Latest Packages
+
+**Turbopack mode in Silk 3.1.0 is CLI-ONLY mode:**
+- ✅ Works: Pre-generated CSS with static class names
+- ❌ Broken: Runtime `css()` calls (no transformation)
+- SWC plugin exists but not integrated into withSilk() config
+
+**For Snapt project (uses css() in page.tsx):**
+- Must use webpack mode with Babel plugin
+- OR refactor page.tsx to use only pre-generated classes
+- Turbopack with `css()` not supported yet
