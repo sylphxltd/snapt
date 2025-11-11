@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
         <line x1="104" y1="510" x2="1176" y2="510" stroke="rgba(0,0,0,0.08)" stroke-width="2"/>
 
         <text x="104" y="550" font-size="20" fill="#718096" font-family="system-ui, sans-serif">
-          github.com/${escapeXml(repo || `sylphxltd/${title.toLowerCase()}`)}
+          github.com/${escapeXml(repo || `SylphxAI/${title.toLowerCase()}`)}
         </text>
 
         ${repoData && showStats ? `

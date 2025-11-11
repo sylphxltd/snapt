@@ -77,19 +77,19 @@ GET /api/languages?repo=owner/repo
 ### Banner for Silk
 
 ```
-/api/banner?title=Silk&tagline=Zero-runtime CSS-in-TS with 92% smaller bundles&features=Type-safe styling,Zero runtime overhead,Full TypeScript support,92% smaller&gradient=667eea,764ba2&icon=🎨&theme=modern&repo=sylphxltd/silk
+/api/banner?title=Silk&tagline=Zero-runtime CSS-in-TS with 92% smaller bundles&features=Type-safe styling,Zero runtime overhead,Full TypeScript support,92% smaller&gradient=667eea,764ba2&icon=🎨&theme=modern&repo=SylphxAI/silk
 ```
 
 ### Star History for Zen
 
 ```
-/api/star-history?repo=sylphxltd/zen
+/api/star-history?repo=SylphxAI/zen
 ```
 
 ### Languages for Benchmark
 
 ```
-/api/languages?repo=sylphxltd/benchmark
+/api/languages?repo=SylphxAI/benchmark
 ```
 
 ## ⚙️ Configuration
@@ -118,7 +118,7 @@ bun install -g vercel
 vercel
 ```
 
-Or click: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sylphxltd/snapt)
+Or click: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/SylphxAI/snapt)
 
 ### Environment Variables
 
@@ -154,7 +154,7 @@ All images are fully customizable via URL parameters. Mix and match:
 
 ## 📄 License
 
-MIT © [SylphX](https://github.com/sylphxltd)
+MIT © [SylphX](https://github.com/SylphxAI)
 
 ## 🙏 Credits
 

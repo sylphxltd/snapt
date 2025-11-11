@@ -468,7 +468,7 @@ export default function Home() {
               <Icon icon="ph:arrow-right-bold" />
             </a>
             <a
-              href="https://github.com/sylphxltd/snapt"
+              href="https://github.com/SylphxAI/snapt"
               target="_blank"
               rel="noopener noreferrer"
               className={`${button} ${buttonSecondary}`}
@@ -569,10 +569,10 @@ export default function Home() {
                 </div>
               </div>
               <div className={exampleImage}>
-                <img className={exampleImg} src="/api/star-history?repo=sylphxltd/snapt" alt="Star history example" />
+                <img className={exampleImg} src="/api/star-history?repo=SylphxAI/snapt" alt="Star history example" />
               </div>
               <div className={codeBlock}>
-                <code className={code}>/api/star-history?repo=sylphxltd/snapt</code>
+                <code className={code}>/api/star-history?repo=SylphxAI/snapt</code>
               </div>
             </div>
 
@@ -589,10 +589,10 @@ export default function Home() {
                 </div>
               </div>
               <div className={exampleImage}>
-                <img className={exampleImg} src="/api/languages?repo=sylphxltd/snapt" alt="Language stats example" />
+                <img className={exampleImg} src="/api/languages?repo=SylphxAI/snapt" alt="Language stats example" />
               </div>
               <div className={codeBlock}>
-                <code className={code}>/api/languages?repo=sylphxltd/snapt</code>
+                <code className={code}>/api/languages?repo=SylphxAI/snapt</code>
               </div>
             </div>
           </div>
@@ -606,7 +606,7 @@ export default function Home() {
           <h2 className={ctaTitle}>Ready to elevate your repositories?</h2>
           <p className={ctaDescription}>Start generating beautiful images in seconds</p>
           <a
-            href="https://github.com/sylphxltd/snapt"
+            href="https://github.com/SylphxAI/snapt"
             target="_blank"
             rel="noopener noreferrer"
             className={`${button} ${buttonPrimary}`}
@@ -624,7 +624,7 @@ export default function Home() {
             <span>Made with</span>
             <Icon icon="ph:heart-fill" style={{ color: '#f472b6' }} />
             <span>by</span>
-            <a href="https://github.com/sylphxltd" className={footerLink}>
+            <a href="https://github.com/SylphxAI" className={footerLink}>
               SylphX
             </a>
           </div>
