@@ -1,34 +1,64 @@
-# ✨ Snapt
+<div align="center">
+
+# Snapt ✨
 
 **Instant visual identity for your GitHub projects**
 
-Generate stunning images for your repositories: social banners, star history charts, language distributions, and more.
+[![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](https://github.com/SylphxAI/snapt/blob/main/LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![Bun](https://img.shields.io/badge/Bun-1.0+-orange?style=flat-square&logo=bun)](https://bun.sh)
 
-## 🚀 Features
+**Social banners** • **Star history charts** • **Language distributions** • **Edge runtime**
 
-- **🎨 Social Banners** - Beautiful 1280×640px banners with live GitHub stats
-- **📊 Star History** - Elegant charts showing repository growth
-- **🌈 Language Stats** - Visual breakdown of your codebase languages
-- **⚡ Lightning Fast** - Edge runtime with smart caching
-- **🔧 Easy to Use** - Just URL parameters, no configuration needed
+[Demo](https://snapt.sylphx.com) • [API Docs](#-api-usage) • [Examples](#-examples)
 
-## 💫 Quick Start
+</div>
 
-```bash
-# Install dependencies
-bun install
+---
 
-# Run development server
-bun dev
+## 🚀 Overview
 
-# Build for production
-bun run build
+Snapt generates stunning visual assets for your GitHub repositories with zero configuration. Just use URL parameters to create beautiful social banners, star history charts, and language distributions.
 
-# Start production server
-bun start
+**The Problem:**
+```
+Creating visual assets for GitHub projects:
+- Manual design tools (slow)
+- Static images (outdated data)
+- Inconsistent branding
+- No automation
 ```
 
-Visit `http://localhost:3000`
+**The Solution:**
+```
+Snapt - URL-based image generation:
+- Dynamic GitHub stats ⚡
+- Zero configuration 🎯
+- Edge runtime (fast) 🚀
+- Beautiful defaults 🎨
+```
+
+**Result: Professional visual identity in seconds.**
+
+---
+
+## ⚡ Features
+
+### Image Types
+
+- **🎨 Social Banners** - Stunning 1280×640px banners with live GitHub stats
+- **📊 Star History** - Elegant charts showing repository growth over time
+- **🌈 Language Stats** - Visual breakdown of your codebase languages
+- **📈 Live Data** - Real-time GitHub API integration
+
+### Performance & DX
+
+- **⚡ Lightning Fast** - Edge runtime with smart caching
+- **🔧 Zero Config** - Just URL parameters, no setup needed
+- **🎯 Fully Customizable** - Colors, themes, content via URL
+- **🌐 Edge Network** - Global CDN for instant delivery
+
+---
 
 ## 📖 API Usage
 
@@ -41,14 +71,17 @@ GET /api/banner?title=MyProject&tagline=Amazing description&features=Fast,Secure
 ```
 
 **Parameters:**
-- `title` (required) - Project name
-- `tagline` (required) - One-line description
-- `features` (required) - Comma-separated features (max 4)
-- `gradient` (required) - Two hex colors without #
-- `icon` (required) - Emoji icon
-- `theme` (optional) - `modern` or `dark` (default: modern)
-- `repo` (optional) - `owner/repo` for live GitHub stats
-- `showStats` (optional) - Show stats badges (default: true)
+
+| Parameter | Type | Description | Default |
+|-----------|------|-------------|---------|
+| `title` | string | Project name | **Required** |
+| `tagline` | string | One-line description | **Required** |
+| `features` | string | Comma-separated features (max 4) | **Required** |
+| `gradient` | string | Two hex colors without # | **Required** |
+| `icon` | string | Emoji icon | **Required** |
+| `theme` | string | `modern` or `dark` | `modern` |
+| `repo` | string | `owner/repo` for live GitHub stats | - |
+| `showStats` | boolean | Show stats badges | `true` |
 
 ### Star History Chart
 
@@ -59,7 +92,10 @@ GET /api/star-history?repo=owner/repo
 ```
 
 **Parameters:**
-- `repo` (required) - Repository in format `owner/repo`
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `repo` | string | Repository in format `owner/repo` (**Required**) |
 
 ### Language Distribution
 
@@ -70,7 +106,12 @@ GET /api/languages?repo=owner/repo
 ```
 
 **Parameters:**
-- `repo` (required) - Repository in format `owner/repo`
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `repo` | string | Repository in format `owner/repo` (**Required**) |
+
+---
 
 ## 🎯 Examples
 
@@ -92,6 +133,38 @@ GET /api/languages?repo=owner/repo
 /api/languages?repo=SylphxAI/benchmark
 ```
 
+---
+
+## 💫 Quick Start
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/SylphxAI/snapt.git
+cd snapt
+
+# Install dependencies
+bun install
+
+# Run development server
+bun dev
+```
+
+Visit `http://localhost:3000`
+
+### Build for Production
+
+```bash
+# Build
+bun run build
+
+# Start production server
+bun start
+```
+
+---
+
 ## ⚙️ Configuration
 
 ### GitHub Token (Optional but Recommended)
@@ -105,6 +178,12 @@ Add a GitHub Personal Access Token for higher API rate limits:
 ```env
 GITHUB_TOKEN=your_token_here
 ```
+
+**Rate Limits:**
+- **Without token**: 60 requests/hour
+- **With token**: 5,000 requests/hour
+
+---
 
 ## 🚀 Deployment
 
@@ -128,40 +207,129 @@ Set `GITHUB_TOKEN` in Vercel dashboard:
 3. Name: `GITHUB_TOKEN`
 4. Value: Your GitHub token
 
+---
+
 ## 🛠️ Tech Stack
 
-- **Next.js 15** - React framework with App Router
-- **Bun** - Fast JavaScript runtime and package manager
-- **@vercel/og** - Dynamic Open Graph image generation
-- **Biome** - Fast linter and formatter
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
+| Component | Technology |
+|-----------|------------|
+| **Framework** | Next.js 15 (App Router) |
+| **Runtime** | Bun |
+| **Image Gen** | @vercel/og |
+| **Language** | TypeScript (strict) |
+| **Styling** | Tailwind CSS |
+| **Linter** | Biome (50x faster) |
+| **API** | GitHub REST API |
+
+---
 
 ## 📦 Use Cases
 
-- **GitHub Social Previews** - Upload generated banners to repo settings
-- **README Headers** - Embed dynamic images in your documentation
-- **Social Media** - Share beautiful repo cards on Twitter/LinkedIn
-- **Project Showcases** - Create visual portfolios of your work
+### GitHub Social Previews
+Upload generated banners to repo settings for beautiful social cards:
+- Twitter/X link previews
+- LinkedIn shares
+- Discord embeds
+
+### README Headers
+Embed dynamic images in your documentation:
+```markdown
+![Banner](https://snapt.sylphx.com/api/banner?title=Project&...)
+```
+
+### Social Media
+Share beautiful repo cards:
+- Visual portfolios
+- Project showcases
+- Release announcements
+
+### Dashboard
+Create visual dashboards of your projects:
+- Star growth tracking
+- Language distributions
+- Activity visualization
+
+---
 
 ## 🎨 Customization
 
-All images are fully customizable via URL parameters. Mix and match:
-- Colors (any hex gradient)
-- Themes (modern glassmorphism or dark premium)
-- Content (title, tagline, features)
-- Stats (automatic GitHub data)
+All images are fully customizable via URL parameters:
+
+**Colors**:
+- Any hex gradient combination
+- Predefined theme presets
+
+**Themes**:
+- `modern` - Glassmorphism with vibrant gradients
+- `dark` - Premium dark mode with subtle accents
+
+**Content**:
+- Title, tagline, features
+- Emoji icons
+- Custom branding
+
+**Stats**:
+- Automatic GitHub data
+- Live star counts
+- Fork counts
+- Issue/PR stats
+
+---
+
+## 🗺️ Roadmap
+
+**✅ Completed**
+- [x] Social banner generation
+- [x] Star history charts
+- [x] Language distributions
+- [x] Edge runtime deployment
+- [x] GitHub API integration
+
+**🚀 Next**
+- [ ] Contributor avatars
+- [ ] Activity heatmaps
+- [ ] Custom themes API
+- [ ] Batch generation
+- [ ] Premium templates
+
+---
+
+## 🤝 Support
+
+[![GitHub Issues](https://img.shields.io/github/issues/SylphxAI/snapt?style=flat-square)](https://github.com/SylphxAI/snapt/issues)
+
+- 🐛 [Bug Reports](https://github.com/SylphxAI/snapt/issues)
+- 💬 [Discussions](https://github.com/SylphxAI/snapt/discussions)
+- 📧 [Email](mailto:hi@sylphx.com)
+
+**Show Your Support:**
+⭐ Star • 👀 Watch • 🐛 Report bugs • 💡 Suggest features • 🔀 Contribute
+
+---
 
 ## 📄 License
 
-MIT © [SylphX](https://github.com/SylphxAI)
+MIT © [Sylphx](https://sylphx.com)
+
+---
 
 ## 🙏 Credits
 
 Built with:
 - [@vercel/og](https://vercel.com/docs/functions/og-image-generation) - Image generation
 - [GitHub REST API](https://docs.github.com/en/rest) - Repository data
+- [Next.js](https://nextjs.org) - React framework
+
+Special thanks to the open source community ❤️
 
 ---
 
-Made with ❤️ for the open source community
+<p align="center">
+  <strong>Instant visual identity. Zero configuration. Beautiful defaults.</strong>
+  <br>
+  <sub>The GitHub image generator that actually makes sense</sub>
+  <br><br>
+  <a href="https://sylphx.com">sylphx.com</a> •
+  <a href="https://x.com/SylphxAI">@SylphxAI</a> •
+  <a href="mailto:hi@sylphx.com">hi@sylphx.com</a>
+</p>
